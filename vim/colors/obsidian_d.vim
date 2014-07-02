@@ -9,8 +9,8 @@ if version > 580
  syntax reset
  endif
 endif
-let colors_name = "obsidian-d"
-:hi Normal guifg=White guibg=grey15
+let colors_name = "obsidian_d"
+:hi Normal guifg=White guibg=grey15 ctermfg=white
 :hi Cursor guibg=khaki guifg=slategrey
 :hi VertSplit guibg=#c2bfa5 guifg=grey40 gui=none cterm=reverse
 :hi Folded guibg=black guifg=grey40 ctermfg=grey ctermbg=darkgrey
@@ -21,15 +21,15 @@ let colors_name = "obsidian-d"
 :hi NonText guifg=RoyalBlue guibg=grey15 cterm=bold ctermfg=blue
 :hi Question guifg=springgreen ctermfg=green
 :hi Search guibg=peru guifg=wheat cterm=none ctermfg=grey ctermbg=blue
-:hi SpecialKey guifg=yellowgreen ctermfg=darkgreen
+:hi SpecialKey guifg=yellowgreen ctermfg=darkgrey term=italic
 :hi StatusLine guibg=#c2bfa5 guifg=black gui=none cterm=bold,reverse
 :hi StatusLineNC guibg=#c2bfa5 guifg=grey40 gui=none cterm=reverse
 :hi Title guifg=gold gui=bold cterm=bold ctermfg=yellow
 :hi Statement guifg=CornflowerBlue ctermfg=lightblue
-:hi Visual gui=none guifg=khaki guibg=olivedrab cterm=reverse
+:hi Visual gui=none guifg=khaki guibg=olivedrab ctermfg=black ctermbg=grey
 :hi WarningMsg guifg=salmon ctermfg=1
 :hi String guifg=SkyBlue ctermfg=darkcyan
-:hi Comment term=bold ctermfg=11 guifg=grey40
+:hi Comment term=italic ctermfg=grey guifg=grey40
 :hi Constant guifg=#ffa0a0 ctermfg=brown
 :hi Special guifg=darkkhaki ctermfg=brown
 :hi Identifier guifg=salmon ctermfg=red
@@ -40,7 +40,7 @@ let colors_name = "obsidian-d"
 :hi Type guifg=CornflowerBlue ctermfg=2
 :hi Function guifg=navajowhite ctermfg=brown
 :hi Structure guifg=green ctermfg=green
-:hi LineNr guifg=grey50 ctermfg=3
+:hi LineNr guifg=grey50 ctermfg=darkgrey
 :hi Ignore guifg=grey40 cterm=bold ctermfg=7
 :hi Todo guifg=orangered guibg=yellow2
 :hi Directory ctermfg=darkcyan

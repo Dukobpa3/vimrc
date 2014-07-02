@@ -28,6 +28,7 @@ set autoread
 let mapleader = ","
 let g:mapleader = ","
 
+let g:colorizer_auto_color = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins
@@ -85,7 +86,7 @@ set tm=500
 " => Text, colors, tab and formatting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
-colorscheme obsidian-d
+colorscheme obsidian_d
 set background=dark
 
 set encoding=utf8		" Set utf8 as standard encoding
@@ -94,7 +95,7 @@ set ffs=unix,dos,mac	" Use Unix as the standard file type
 set list listchars=tab:→\ ,trail:·,extends:>,precedes:<,nbsp:_
 set number			" Show line numbers
 "highlight LineNr ctermfg=gray ctermbg=black cterm=reverse
-highlight SpecialKey ctermfg=yellow
+"highlight SpecialKey ctermfg=yellow
 "highlight LineNr guifg=#030303 guibg=#808080 cterm=reverse
 "highlight SpecialKey guifg=black guibg=cyan
 
@@ -185,17 +186,6 @@ set laststatus=2
 
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Pos:\ %c\ \ Line:\ %l/%L
-"set statusline=%t       "tail of the filename
-"set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-"set statusline+=%{&ff}] "file format
-"set statusline+=%h      "help file flag
-"set statusline+=%m      "modified flag
-"set statusline+=%r      "read only flag
-"set statusline+=%y      "filetype
-"set statusline+=%=      "left/right separator
-"set statusline+=%c,     "cursor column
-"set statusline+=%l/%L   "cursor line/total lines
-"set statusline+=\ %P    "percent through file
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
