@@ -8,10 +8,23 @@ if has("gui_running")
 	set guioptions-=T
 	set guioptions-=m
 	set guioptions+=e
-	set t_Co=256
 	set guitablabel=%M\ %t
 else
 	set mouse=
+endif
+
+if &term =~ "xterm"
+	"256 color --
+	let &t_Co=256
+	" restore screen after quitting
+	set t_ti=ESC7ESC[rESC[?47h t_te=ESC[?47lESC8
+	if has("terminfo")
+		let &t_Sf="\ESC[3%p1%dm"
+		let &t_Sb="\ESC[4%p1%dm"
+	else
+		let &t_Sf="\ESC[3%dm"
+		let &t_Sb="\ESC[4%dm"
+	endif
 endif
 
 " Sets how many lines of history VIM has to remember
@@ -33,7 +46,7 @@ let g:mapleader = ","
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-noremap <silent> <F10> :call VimCommanderToggle()<CR>
+noremap <silent> <F11> :call VimCommanderToggle()<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -86,7 +99,7 @@ set tm=500
 " => Text, colors, tab and formatting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
-colorscheme slate
+colorscheme desert
 set background=dark
 
 set encoding=utf8		" Set utf8 as standard encoding
@@ -119,6 +132,19 @@ set linebreak		" Break lines at word (requires Wrap lines)
 set showbreak=+++	" Wrap-broken line prefix
 set textwidth=100	" Line wrap (number of cols)
 set showmatch		" Highlight matching brace
+
+" Folding
+set foldmethod=syntax
+set foldlevelstart=1
+
+let javaScript_fold=1         " JavaScript
+let perl_fold=1               " Perl
+let php_folding=1             " PHP
+let r_syntax_folding=1        " R
+let ruby_fold=1               " Ruby
+let sh_fold_enabled=1         " sh
+let vimsyn_folding='af'       " Vim script
+let xml_syntax_folding=1      " XML
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
