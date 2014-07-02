@@ -85,7 +85,7 @@ set tm=500
 " => Text, colors, tab and formatting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
-colorscheme desert
+colorscheme obsidian-d
 set background=dark
 
 set encoding=utf8		" Set utf8 as standard encoding
