@@ -1,6 +1,19 @@
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set different options for GUI and console mode
+if has("gui_running")
+	set guioptions-=T
+	set guioptions-=m
+	set guioptions+=e
+	set t_Co=256
+	set guitablabel=%M\ %t
+else
+	set mouse=
+endif
+
 " Sets how many lines of history VIM has to remember
 set history=700
 
@@ -18,19 +31,20 @@ let g:mapleader = ","
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+noremap <silent> <F10> :call VimCommanderToggle()<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
+set so=3 " Set 3 lines to the cursor - when moving vertically using j/k
 
-" Turn on the WiLd menu
-set wildmenu
+set wildmenu " Turn on the WiLd menu
+set wildignore=*.o,*~,*.pyc " Ignore compiled files
 
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc
-
-"Always show current position
-set ruler
+set ruler "Always show current position
 
 " Height of the command bar
 set cmdheight=2
@@ -69,29 +83,23 @@ set tm=500
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
+" => Text, colors, tab and formatting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
 colorscheme slate
 set background=dark
 
-" Set different options for GUI and console mode
-if has("gui_running")
-	set guioptions-=T
-	set guioptions-=m
-	set guioptions+=e
-	set t_Co=256
-	set guitablabel=%M\ %t
-else
-	set mouse=
-endif
-
 set encoding=utf8		" Set utf8 as standard encoding
 set ffs=unix,dos,mac	" Use Unix as the standard file type
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set list listchars=tab:→\ ,trail:·,extends:>,precedes:<,nbsp:_
+set number			" Show line numbers
+"highlight LineNr ctermfg=gray ctermbg=black cterm=reverse
+highlight SpecialKey ctermfg=yellow
+"highlight LineNr guifg=#030303 guibg=#808080 cterm=reverse
+"highlight SpecialKey guifg=black guibg=cyan
+
+
 " Be smart when using tabs ;)
 set smarttab
 
@@ -106,14 +114,6 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
-
-set list listchars=tab:→\ ,trail:·,extends:>,precedes:<,nbsp:_
-set number			" Show line numbers
-"highlight LineNr ctermfg=gray ctermbg=black cterm=reverse
-"highlight SpecialKey ctermfg=gray ctermbg=black cterm=reverse
-"highlight LineNr guifg=#030303 guibg=#808080 cterm=reverse
-"highlight SpecialKey guifg=black guibg=cyan
-
 
 set linebreak		" Break lines at word (requires Wrap lines)
 set showbreak=+++	" Wrap-broken line prefix
@@ -136,18 +136,8 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 map j gj
 map k gk
 
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
-
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
-
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>
@@ -175,15 +165,6 @@ try
 catch
 endtry
 
-" Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
-		\ if line("'\"") > 0 && line("'\"") <= line("$") |
-		\ 	exe "normal! g`\"" |
-		\ endif
-" Remember info about open buffers on close
-set viminfo^=%
-
-
 """"""""""""""""""""""""""""""
 " => Status line
 """"""""""""""""""""""""""""""
@@ -191,21 +172,22 @@ set viminfo^=%
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
-
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Pos:\ %c\ \ Line:\ %l/%L
+"set statusline=%t       "tail of the filename
+"set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+"set statusline+=%{&ff}] "file format
+"set statusline+=%h      "help file flag
+"set statusline+=%m      "modified flag
+"set statusline+=%r      "read only flag
+"set statusline+=%y      "filetype
+"set statusline+=%=      "left/right separator
+"set statusline+=%c,     "cursor column
+"set statusline+=%l/%L   "cursor line/total lines
+"set statusline+=\ %P    "percent through file
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap VIM 0 to first non-blank character
-map 0 ^
-
-" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
 	exe "normal mz"
