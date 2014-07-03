@@ -28,13 +28,13 @@ set autoread
 let mapleader = ","
 let g:mapleader = ","
 
-let g:colorizer_auto_color = 1
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 noremap <silent> <F11> :call VimCommanderToggle()<CR>
-
+let g:colorizer_auto_color = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -89,16 +89,15 @@ syntax enable
 colorscheme obsidian_d
 set background=dark
 
+" reset colors at exit
+au VimLeave * !echo -ne "\033[0m"
+
 set encoding=utf8		" Set utf8 as standard encoding
 set ffs=unix,dos,mac	" Use Unix as the standard file type
 
+" view whitespace chars
 set list listchars=tab:→\ ,trail:·,extends:>,precedes:<,nbsp:_
 set number			" Show line numbers
-"highlight LineNr ctermfg=gray ctermbg=black cterm=reverse
-"highlight SpecialKey ctermfg=yellow
-"highlight LineNr guifg=#030303 guibg=#808080 cterm=reverse
-"highlight SpecialKey guifg=black guibg=cyan
-
 
 " Be smart when using tabs ;)
 set smarttab
