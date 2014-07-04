@@ -5,12 +5,12 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set different options for GUI and console mode
 if has("gui_running")
-	set guioptions-=T
-	set guioptions-=m
-	set guioptions+=e
-	set guitablabel=%M\ %t
+    set guioptions-=T
+    set guioptions-=m
+    set guioptions+=e
+    set guitablabel=%M\ %t
 else
-	set mouse=
+    set mouse=
 endif
 
 " Sets how many lines of history VIM has to remember
@@ -92,32 +92,32 @@ set background=dark
 " reset colors at exit
 au VimLeave * !echo -ne "\033[0m"
 
-set encoding=utf8		" Set utf8 as standard encoding
-set ffs=unix,dos,mac	" Use Unix as the standard file type
+set encoding=utf8       " Set utf8 as standard encoding
+set ffs=unix,dos,mac    " Use Unix as the standard file type
 
 " view whitespace chars
-set list listchars=tab:→\ ,trail:·,extends:>,precedes:<,nbsp:_
-set number			" Show line numbers
+set list listchars=tab:→\ ,trail:·,extends:>,precedes:<,nbsp:%
+set number          " Show line numbers
 
 " Be smart when using tabs ;)
 set smarttab
+" Expand tabs into spaces. Hate it, but much usable vith Ctrl-v
+set expandtab
 
 " 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
 
-" Linebreak on 500 characters
-set lbr
-set tw=500
+set lbr tw=500      " Linebreak on 500 characters
 
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
+set ai              "Auto indent
+set si              "Smart indent
+set wrap            "Wrap lines
 
-set linebreak		" Break lines at word (requires Wrap lines)
-set showbreak=+++	" Wrap-broken line prefix
-set textwidth=100	" Line wrap (number of cols)
-set showmatch		" Highlight matching brace
+set linebreak       " Break lines at word (requires Wrap lines)
+set showbreak=+++   " Wrap-broken line prefix
+set textwidth=100   " Line wrap (number of cols)
+set showmatch       " Highlight matching brace
 
 " Folding
 set foldmethod=syntax
@@ -172,8 +172,8 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers 
 try
-	set switchbuf=useopen,usetab,newtab
-	set stal=2
+    set switchbuf=useopen,usetab,newtab
+    set stal=2
 catch
 endtry
 
@@ -191,9 +191,9 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Pos:\ %
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
-	exe "normal mz"
-	%s/\s\+$//ge
-	exe "normal `z"
+    exe "normal mz"
+    %s/\s\+$//ge
+    exe "normal `z"
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
@@ -203,59 +203,59 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! CmdLine(str)
-	exe "menu Foo.Bar :" . a:str
-	emenu Foo.Bar
-	unmenu Foo
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
 endfunction
 
 function! VisualSelection(direction) range
-	let l:saved_reg = @"
-	execute "normal! vgvy"
+    let l:saved_reg = @"
+    execute "normal! vgvy"
 
-	let l:pattern = escape(@", '\\/.*$^~[]')
-	let l:pattern = substitute(l:pattern, "\n$", "", "")
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
 
-	if a:direction == 'b'
-		execute "normal ?" . l:pattern . "^M"
-	elseif a:direction == 'gv'
-		call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
-	elseif a:direction == 'replace'
-		call CmdLine("%s" . '/'. l:pattern . '/')
-	elseif a:direction == 'f'
-		execute "normal /" . l:pattern . "^M"
-	endif
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
 
-	let @/ = l:pattern
-	let @" = l:saved_reg
+    let @/ = l:pattern
+    let @" = l:saved_reg
 endfunction
 
 
 " Returns true if paste mode
 " is enabled
 function! HasPaste()
-	if &paste
-		return 'PASTE MODE  '
-	en
-	return ''
+    if &paste
+        return 'PASTE MODE  '
+    en
+    return ''
 endfunction
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
-	let l:currentBufNum = bufnr("%")
-	let l:alternateBufNum = bufnr("#")
+    let l:currentBufNum = bufnr("%")
+    let l:alternateBufNum = bufnr("#")
 
-	if buflisted(l:alternateBufNum)
-		buffer #
-	else
-		bnext
-	endif
+    if buflisted(l:alternateBufNum)
+        buffer #
+    else
+        bnext
+    endif
 
-	if bufnr("%") == l:currentBufNum
-		new
-	endif
+    if bufnr("%") == l:currentBufNum
+        new
+    endif
 
-	if buflisted(l:currentBufNum)
-		execute("bdelete! ".l:currentBufNum)
-	endif
+    if buflisted(l:currentBufNum)
+        execute("bdelete! ".l:currentBufNum)
+    endif
 endfunction
