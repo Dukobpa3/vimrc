@@ -10,7 +10,7 @@ if version > 580
  endif
 endif
 let colors_name = "obsidian_d"
-:hi Normal guifg=White guibg=grey15 ctermfg=white
+:hi Normal guifg=White guibg=grey15 ctermfg=lightgrey
 :hi Cursor guibg=khaki guifg=slategrey
 :hi VertSplit guibg=#c2bfa5 guifg=grey40 gui=none cterm=reverse
 :hi Folded guibg=black guifg=grey40 ctermfg=grey ctermbg=darkgrey
